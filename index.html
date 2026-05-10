@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QZ Tech Lab - Architecting Digital Futures with Next-Gen Technology.">
+    <title>QZ Tech Lab | Innovating the Future</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #030807; /* Very dark green-tinted black */
+            --surface-color: #081211;
+            --accent-color: #00A19B; /* Petronas Green */
+            --accent-glow: rgba(0, 161, 155, 0.4);
+            --text-main: #f0f4f4;
+            --text-muted: #8ba3a1;
+            --glass-bg: rgba(8, 18, 17, 0.6);
+            --glass-border: rgba(0, 161, 155, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Abstract Background Elements */
+        .bg-glow {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+            top: -20vh;
+            left: -10vw;
+            z-index: -1;
+            filter: blur(90px);
+            opacity: 0.5;
+            animation: pulse 10s ease-in-out infinite alternate;
+        }
+
+        .bg-glow-2 {
+            position: fixed;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+            bottom: -20vh;
+            right: -10vw;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: pulse 12s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(3, 8, 7, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px var(--accent-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 1.2rem;
+            background: rgba(0, 161, 155, 0.1);
+            border: 1px solid var(--accent-color);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 15px rgba(0, 161, 155, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .badge::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 8px var(--accent-color);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #ffffff 20%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0, 161, 155, 0.2);
+        }
+
+        .hero-text {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .btn {
+            padding: 1.1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 161, 155, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 40px rgba(0, 161, 155, 0.6);
+            background-color: #00b5af;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-color);
+            background: rgba(0, 161, 155, 0.08);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 10%;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+            max-width: 800px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.2rem;
+            background: linear-gradient(90deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(0, 161, 155, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 161, 155, 0.15);
+            background: rgba(8, 18, 17, 0.8);
+        }
+
+        .card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 161, 155, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            border: 1px solid rgba(0, 161, 155, 0.3);
+            font-size: 1.8rem;
+            box-shadow: inset 0 0 20px rgba(0, 161, 155, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 2;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Banner Section */
+        .banner {
+            margin: 0 10%;
+            padding: 4rem;
+            background: linear-gradient(135deg, rgba(0, 161, 155, 0.1) 0%, rgba(8, 18, 17, 0.8) 100%);
+            border: 1px solid var(--accent-color);
+            border-radius: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 161, 155, 0.1);
+        }
+
+        .banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .banner p {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 8rem;
+            padding: 4rem 10%;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(3, 8, 7, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            header {
+                padding-top: 120px;
+                text-align: left;
+            }
+
+            .cta-group {
+                flex-direction: column;
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .banner {
+                margin: 0 5%;
+                padding: 3rem 1.5rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Abstract glowing background -->
+    <div class="bg-glow"></div>
+    <div class="bg-glow-2"></div>
+
+    <nav id="navbar">
+        <a href="#" class="logo">QZ<span>Lab</span></a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#services">Capabilities</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div>
+            <div class="badge">System Status: Online</div>
+            <h1>Architecting<br><span>Digital Futures</span></h1>
+            <p class="hero-text">We engineer high-performance web applications and cutting-edge software solutions designed to scale, inspire, and drive growth in the modern digital era.</p>
+            <div class="cta-group">
+                <a href="#contact" class="btn btn-primary">Initialize Project</a>
+                <a href="#services" class="btn btn-secondary">Explore Solutions</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="features" id="services">
+        <div class="section-header">
+            <h2>Core Competencies</h2>
+            <p>Empowering forward-thinking enterprises with state-of-the-art technological infrastructure.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </div>
+                <h3>High-Performance Web</h3>
+                <p>Lightning-fast, highly optimized web applications built with modern frameworks, ensuring sub-second load times and flawless user experiences.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h3>Robust Architecture</h3>
+                <p>Scalable cloud infrastructure designed for maximum reliability, military-grade security, and seamless continuous deployment pipelines.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                </div>
+                <h3>Intelligent Systems</h3>
+                <p>Seamless integration of advanced AI and machine learning models to automate complex workflows and surface deep analytical insights.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="banner" id="contact">
+        <h2>Ready to build the future?</h2>
+        <p>Let's collaborate on your next technological breakthrough.</p>
+        <a href="https://www.instagram.com/techlab202/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Connect with QZ Lab</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">QZ<span>Lab</span></div>
+        <p class="copyright">&copy; 2026 QZ Tech Lab. All rights reserved. Crafted with precision.</p>
+    </footer>
+
+    <script>
+        // Dynamic Navbar Background
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(3, 8, 7, 0.95)';
+                navbar.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+                navbar.style.padding = '1rem 5%';
+            } else {
+                navbar.style.background = 'rgba(3, 8, 7, 0.8)';
+                navbar.style.boxShadow = 'none';
+                navbar.style.padding = '1.5rem 5%';
+            }
+        });
+
+        // Smooth Scrolling for Anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
